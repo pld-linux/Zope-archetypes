@@ -4,8 +4,8 @@
 #   connection refused (on WWW)!
 #
 %define		zope_subname	archetypes
-Summary:	A framework for developing new content types in Plone
-Summary(pl):	Nowe ¶rodowisko pracy dla twórców serwisów Plone
+Summary:	Framework designed to facilitate the building of applications for Plone and CMF. 
+Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.2.0
 Release:	1
@@ -25,19 +25,17 @@ Conflicts:	CMF
 Conflicts:	Plone
 
 %description
-Archetypes is a framework for developing new content types in
-Plone. The power of Archetypes is, first, in automatically generating
-forms; second, in providing a library of stock field types, form
-widgets, and field validators; third, in easily integrating custom
-fields, widgets, and validators; and fourth, in automating
-transformations of rich content.
+Archetypes (formerly known as CMFTypes) is a framework designed 
+to facilitate the building of applications for Plone and CMF. 
+Its main purpose is to provide a common method for building 
+content objects, based on schema definitions. 
 
 %description -l pl
-Archetypes jest nowym ¶rodowiskiem pracy dla twórców serwisów
-Plone. Si³± Archetypes s± automatycznie generowane formularze,
-zarz±dzalne biblioteki pól typów, kontrolek i korektorów pól, a tak¿e
-³atwa integracja zaawansowanych mo¿liwo¶ci z w/w typami. Posiada
-równie¿ bogat± automatykê.
+Archetypes (formalnie znany jako CMFTypes) jest ¶rodowskiem
+u³atwiaj±cym budowanie aplikacji dla Plone i CMF.
+G³ównym zadaniem jest dostarczenie podstawowych metod 
+do zbudowania obiektów typu content opartych na zdefiniowanych
+schematach. 
 
 %prep
 %setup -q -c
