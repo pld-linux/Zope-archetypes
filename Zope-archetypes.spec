@@ -60,7 +60,7 @@ cp -af * $RPM_BUILD_ROOT%{product_dir}
 %py_comp $RPM_BUILD_ROOT%{product_dir}
 %py_ocomp $RPM_BUILD_ROOT%{product_dir}
 
-find $RPM_BUILD_ROOT -type f -name "*.py" -exec rm -rf {} \;;
+# find $RPM_BUILD_ROOT -type f -name "*.py" -exec rm -rf {} \;;
 rm -rf $RPM_BUILD_ROOT%{product_dir}/docs
 
 %clean
