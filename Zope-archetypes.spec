@@ -3,12 +3,12 @@
 Summary:	Framework designed to facilitate the building of applications for Plone and CMF. 
 Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
-Version:	1.2.0
-Release:	4
+Version:	1.2.1
+Release:	1
 License:	GPL
 Group:		Development/Tools
-Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
-# Source0-md5:	b25fdf747a286488b17e512205f4f1ac
+Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}_final.tgz
+# Source0-md5:	f6d16fc06959e3165034fb8b46690f29
 URL:		http://dreamcatcher.homeunix.org/
 %pyrequires_eq	python-modules
 Requires:	Zope
@@ -36,22 +36,23 @@ schematach.
 
 %prep
 %setup -q -c
-rm -f %{zope_subname}-%{version}/ArchGenXML/.cvsignore
+rm -f %{zope_subname}-%{version}_final/ArchGenXML/.cvsignore
 find . -type d -name debian | xargs rm -rf
 
 %build
 install -d docs/{ArchExample,ArchGenXML,Archetypes,generator,validation}
-mv -f %{zope_subname}-%{version}/ArchExample/ChangeLog docs/ArchExample
-mv -f %{zope_subname}-%{version}/ArchGenXML/README docs/ArchGenXML
-mv -f %{zope_subname}-%{version}/Archetypes/{AUTHORS,ChangeLog,README.txt,TODO.txt} docs/Archetypes
-mv -f %{zope_subname}-%{version}/generator/{ChangeLog,README} docs/generator
-mv -f %{zope_subname}-%{version}/validation/{ChangeLog,README} docs/validation
+mv -f %{zope_subname}-%{version}_final/ArchExample/ChangeLog docs/ArchExample
+mv -f %{zope_subname}-%{version}_final/ArchGenXML/README docs/ArchGenXML
+mv -f %{zope_subname}-%{version}_final/Archetypes/{AUTHORS,ChangeLog,README.txt,TODO.txt} docs/Archetypes
+mv -f %{zope_subname}-%{version}_final/generator/{ChangeLog,README} docs/generator
+rm -rf %{zope_subname}-%{version}_final/{generator,validation}/MANIFEST.in
+mv -f %{zope_subname}-%{version}_final/validation/{ChangeLog,README} docs/validation
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -af %{zope_subname}-%{version}/{ArchExample,ArchGenXML,Archetypes,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -af %{zope_subname}-%{version}_final/{ArchExample,ArchGenXML,Archetypes,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
