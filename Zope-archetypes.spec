@@ -7,16 +7,17 @@ Summary:	Framework designed to facilitate the building of applications for Plone
 Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.2.0
-Release:	3
+Release:	4
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
 # Source0-md5:	b25fdf747a286488b17e512205f4f1ac
 URL:		http://dreamcatcher.homeunix.org/
 %pyrequires_eq	python-modules
-Requires:	Zope-CMF
-Requires:	Zope-CMFPlone
 Requires:	Zope
+Requires:	Zope-CMFPlone
+Requires:	Zope-CMF
+Requires:	Zope-PortalTransforms
 Requires(post,postun):  /usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
