@@ -7,7 +7,7 @@ Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.3.0
 #%%define		sub_ver rc3
-Release:	1
+Release:	2
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/Archetypes-%{version}-final-Bundle.tgz
@@ -44,7 +44,7 @@ find . -type f -name .cvsignore | xargs rm -rf
 
 %build
 mkdir docs docs/{Archetypes,MimetypesRegistry,PortalTransforms,generator,validation}
-install -d docs/{Archetypes,MimetypesRegistry,generator,validation}
+install -d docs/{Archetypes,MimetypesRegistry,PortalTransforms,generator,validation}
 mv -f Archetypes/{AUTHORS,ChangeLog,HISTORY.txt,README.txt,DEPENDS,TODO.txt} docs/Archetypes
 rm -rf Archetypes/LICENSE.*
 mv -f MimetypesRegistry/{ChangeLog,HISTORY.txt,README} docs/MimetypesRegistry
