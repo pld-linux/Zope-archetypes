@@ -1,4 +1,8 @@
-%include	/usr/lib/rpm/macros.python
+# 
+# TODO
+# - check this version on stable branch - on Zope 2.7.0b3 and Plone 2.0b3 Zope starting but 
+#   connection refused (on WWW)!
+#
 %define		zope_subname	archetypes
 Summary:	A framework for developing new content types in Plone
 Summary(pl):	Nowe ¶rodowisko pracy dla twórców serwisów Plone
