@@ -7,7 +7,7 @@ Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.3.0
 #%%define		sub_ver rc3
-Release:	2
+Release:	3
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/Archetypes-%{version}-final-Bundle.tgz
@@ -17,6 +17,7 @@ URL:		http://dreamcatcher.homeunix.org/
 Requires:	Zope
 Requires:	Zope-CMFPlone
 Requires:	Zope-CMF
+Requires:	rtf-converter
 Requires(post,postun):  /usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -46,11 +47,11 @@ find . -type f -name .cvsignore | xargs rm -rf
 mkdir docs docs/{Archetypes,MimetypesRegistry,PortalTransforms,generator,validation}
 install -d docs/{Archetypes,MimetypesRegistry,PortalTransforms,generator,validation}
 mv -f Archetypes/{AUTHORS,ChangeLog,HISTORY.txt,README.txt,DEPENDS,TODO.txt} docs/Archetypes
-rm -rf Archetypes/LICENSE.*
+# rm -rf Archetypes/LICENSE.*
 mv -f MimetypesRegistry/{ChangeLog,HISTORY.txt,README} docs/MimetypesRegistry
-rm -rf MimetypesRegistry/LICENSE.txt
+# rm -rf MimetypesRegistry/LICENSE.txt
 mv -f PortalTransforms/{ChangeLog,DEPENDS,HISTORY.txt,README,SUGGESTS,TODO} docs/PortalTransforms
-rm -rf PortalTransforms/{LICENSE.txt,MANIFEST.in,Makefile}
+rm -rf PortalTransforms/{MANIFEST.in,Makefile}
 mv -f generator/{ChangeLog,README,HISTORY.txt} docs/generator
 rm -rf {generator,validation}/MANIFEST.in
 mv -f validation/{ChangeLog,README,HISTORY.txt} docs/validation
@@ -70,7 +71,7 @@ cp -af {Archetypes,MimetypesRegistry,PortalTransforms,generator,validation} $RPM
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in Archetypes MimetypesRegistry PortalTransforms generator validation; do
+for p in Archetypes MimetypesRegistry generator validation PortalTransforms; do
     /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -79,7 +80,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in Archetypes MimetypesRegistry PortalTransforms generator validation; do
+    for p in Archetypes MimetypesRegistry generator validation PortalTransforms; do
         /usr/sbin/installzopeproduct -d $p
     done
 fi
