@@ -5,13 +5,13 @@
 Summary:	Framework designed to facilitate the building of applications for Plone and CMF
 Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF
 Name:		Zope-%{zope_subname}
-Version:	1.3.1
+Version:	1.3.2
 #%%define		sub_ver rc3
-Release:	2
+Release:	1
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/archetypes/Archetypes-%{version}-final-Bundle.tar.gz
-# Source0-md5:	99094266adf7a845eccf95aa46e28863
+# Source0-md5:	f6e99870711c9d2545046a998a7eda8a
 URL:		http://dreamcatcher.homeunix.org/
 BuildRequires:	python
 %pyrequires_eq	python-modules
