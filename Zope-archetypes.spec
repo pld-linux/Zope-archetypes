@@ -1,14 +1,13 @@
 # 
 # TODO
-# - check this version on stable branch - on Zope 2.7.0b3 and Plone 2.0b3 Zope starting but 
-#   connection refused (on WWW)!
+# - check this version on Zope, Plone and CMF
 #
 %define		zope_subname	archetypes
 Summary:	Framework designed to facilitate the building of applications for Plone and CMF. 
 Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.2.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
@@ -40,6 +39,7 @@ schematach.
 %prep
 %setup -q -c
 rm -f %{zope_subname}-%{version}/ArchGenXML/.cvsignore
+find . -type d -name debian | xargs rm -rf
 
 %build
 install -d docs/{ArchExample,ArchGenXML,Archetypes,generator,validation}
@@ -53,22 +53,24 @@ mv -f validation/{ChangeLog,README} ../docs/validation
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{py_sitedir}
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
-
-# should {Archetypes,validation}/tests and */version.txt be installed or not?
-cp -af %{zope_subname}-%{version}/{ArchExample,ArchGenXML,Archetypes,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -af %{zope_subname}-%{version}/{generator,validation} $RPM_BUILD_ROOT%{py_sitedir}
+cp -af %{zope_subname}-%{version}/{ArchExample,ArchGenXML,Archetypes} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-# find $RPM_BUILD_ROOT -type f -name "*.py" -exec rm: -rf {} \;;
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in ArchExample ArchGenXML Archetypes generator validation ; do
+for p in ArchExample ArchGenXML Archetypes ; do
     /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -77,7 +79,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in ArchExample ArchGenXML Archetypes generator validation ; do
+    for p in ArchExample ArchGenXML Archetypes ; do
         /usr/sbin/installzopeproduct -d $p
     done
 fi
@@ -88,4 +90,8 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc docs/*
-%{_datadir}/%{name}
+%{_datadir}/%{name}/ArchExample
+%{_datadir}/%{name}/ArchGenXML
+%{_datadir}/%{name}/Archetypes
+%{py_sitedir}/generator
+%{py_sitedir}/validation
