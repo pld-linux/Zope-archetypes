@@ -2,8 +2,8 @@
 
 %define		zope_subname	archetypes
 
-Summary:	CMFArchetypes is a framework for developing new content types in Plone.
-Summary(pl):	CMFArchetypes jest nowym ¶rodowiskiem pracy dla twórców serwisów Plone.
+Summary:	Archetypes is a framework for developing new content types in Plone.
+Summary(pl):	Archetypes jest nowym ¶rodowiskiem pracy dla twórców serwisów Plone.
 Name:		Zope-%{zope_subname}
 Version:	1.0.1
 Release:	1
@@ -22,7 +22,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define 	product_dir	/usr/lib/zope/Products
 
 %description
-CMFArchetypes is a framework for developing new content types in
+Archetypes is a framework for developing new content types in
 Plone. The power of Archetypes is, first, in automatically generating
 forms; second, in providing a library of stock field types, form
 widgets, and field validators; third, in easily integrating custom
@@ -30,7 +30,7 @@ fields, widgets, and validators; and fourth, in automating
 transformations of rich content.
 
 %description -l pl
-CMFArchetypes jest nowym ¶rodowiskiem pracy dla twórców serwisów
+Archetypes jest nowym ¶rodowiskiem pracy dla twórców serwisów
 Plone. Si³± Archetypes s± automatycznie generowane formularze,
 zarz±dzalne biblioteki pól typów, kontrolek i korektorów pól, a tak¿e
 ³atwa integracja zaawansowanych mo¿liwo¶ci z w/w typami. Posiada
