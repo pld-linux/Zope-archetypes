@@ -6,7 +6,7 @@ Summary:	Archetypes - a framework for developing new content types in Plone
 Summary(pl):	Archetypes - nowe ¶rodowisko pracy dla twórców serwisów Plone
 Name:		Zope-%{zope_subname}
 Version:	1.0.1
-Release:	1
+Release:	2
 License:	GNU
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
