@@ -13,6 +13,7 @@ Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/archetypes/Archetypes-%{version}-final-Bundle.tar.gz
 # Source0-md5:	99094266adf7a845eccf95aa46e28863
 URL:		http://dreamcatcher.homeunix.org/
+BuildRequires:  python
 %pyrequires_eq	python-modules
 Requires:	Zope
 Requires:	Zope-CMFPlone
