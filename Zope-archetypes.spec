@@ -2,8 +2,8 @@
 # Warning: Some old products can cause problems with archetypes - e.g. PortalTransport
 #
 %define		zope_subname	archetypes
-Summary:	Framework designed to facilitate the building of applications for Plone and CMF. 
-Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
+Summary:	Framework designed to facilitate the building of applications for Plone and CMF
+Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF
 Name:		Zope-%{zope_subname}
 Version:	1.3.0
 #%%define		sub_ver rc3
@@ -19,11 +19,11 @@ Requires:	Zope-CMFPlone
 Requires:	Zope-CMF
 Requires:	rtf-converter
 Requires(post,postun):  /usr/sbin/installzopeproduct
-BuildArch:	noarch
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	Zope-PortalTransforms
 Conflicts:	CMF
 Conflicts:	Plone
-Obsoletes:	Zope-PortalTransforms
+BuildArch:	noarch
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Archetypes (formerly known as CMFTypes) is a framework designed 
