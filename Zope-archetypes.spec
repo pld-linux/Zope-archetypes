@@ -1,25 +1,24 @@
 %include	/usr/lib/rpm/macros.python
-
 %define		zope_subname	archetypes
-
-Summary:	Archetypes - a framework for developing new content types in Plone
-Summary(pl):	Archetypes - nowe ¶rodowisko pracy dla twórców serwisów Plone
+Summary:	A framework for developing new content types in Plone
+Summary(pl):	Nowe ¶rodowisko pracy dla twórców serwisów Plone
 Name:		Zope-%{zope_subname}
 Version:	1.0.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
 # Source0-md5:	53f3ccf5a88ce3a91b50e8a82165c2de
 URL:		http://dreamcatcher.homeunix.org/
 %pyrequires_eq	python-modules
-Requires:	CMF
-Requires:	Plone
+Requires:	Zope-CMF
+Requires:	Zope-CMFPlone
 Requires:	Zope
+Requires(post,postun):  /usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define 	product_dir	/usr/lib/zope/Products
+Conflicts:	CMF
+Conflicts:	Plone
 
 %description
 Archetypes is a framework for developing new content types in
@@ -38,7 +37,6 @@ równie¿ bogat± automatykê.
 
 %prep
 %setup -q -c
-
 rm -f %{zope_subname}-%{version}/ArchGenXML/.cvsignore
 
 %build
@@ -54,35 +52,39 @@ mv -f validation/{ChangeLog,README} ../docs/validation
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{product_dir}
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 # should {Archetypes,validation}/tests and */version.txt be installed or not?
-cp -af %{zope_subname}-%{version}/* $RPM_BUILD_ROOT%{product_dir}
+cp -af %{zope_subname}-%{version}/{ArchExample,ArchGenXML,Archetypes,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-%py_comp $RPM_BUILD_ROOT%{product_dir}
-%py_ocomp $RPM_BUILD_ROOT%{product_dir}
+%py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
+%py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-# find $RPM_BUILD_ROOT -type f -name "*.py" -exec rm -rf {} \;;
-rm -rf $RPM_BUILD_ROOT%{product_dir}/docs
+# find $RPM_BUILD_ROOT -type f -name "*.py" -exec rm: -rf {} \;;
+rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
+for p in ArchExample ArchGenXML Archetypes generator validation ; do
+    /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
+done
 if [ -f /var/lock/subsys/zope ]; then
 	/etc/rc.d/init.d/zope restart >&2
 fi
 
 %postun
+if [ "$1" = "0" ]; then
+    for p in ArchExample ArchGenXML Archetypes generator validation ; do
+        /usr/sbin/installzopeproduct -d $p
+    done
+fi
 if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
+            /etc/rc.d/init.d/zope restart >&2
 fi
 
 %files
 %defattr(644,root,root,755)
 %doc docs/*
-%{product_dir}/ArchExample
-%{product_dir}/ArchGenXML
-%{product_dir}/Archetypes
-%{product_dir}/generator
-%{product_dir}/validation
+%{_datadir}/%{name}
