@@ -86,4 +86,3 @@ fi
 %defattr(644,root,root,755)
 %doc docs/* 
 %{_datadir}/%{name}
-%dir %{_datadir}
