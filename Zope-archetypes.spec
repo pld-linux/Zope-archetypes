@@ -31,7 +31,7 @@ Its main purpose is to provide a common method for building
 content objects, based on schema definitions. 
 
 %description -l pl
-Archetypes (formalnie znany jako CMFTypes) jest ¶rodowskiem
+Archetypes (poprzednio znany jako CMFTypes) jest ¶rodowskiem
 u³atwiaj±cym budowanie aplikacji dla Plone i CMF.
 G³ównym zadaniem jest dostarczenie podstawowych metod 
 do zbudowania obiektów typu content opartych na zdefiniowanych
