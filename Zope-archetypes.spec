@@ -18,7 +18,7 @@ Requires:	Zope
 Requires:	Zope-CMFPlone
 Requires:	Zope-CMF
 Requires:	rtf-converter
-Requires(post,postun):  /usr/sbin/installzopeproduct
+Requires(post,postun):	/usr/sbin/installzopeproduct
 Obsoletes:	Zope-PortalTransforms
 Conflicts:	CMF
 Conflicts:	Plone
@@ -68,7 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 for p in Archetypes MimetypesRegistry generator validation PortalTransforms; do
-    /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
+	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
 	/etc/rc.d/init.d/zope restart >&2
@@ -76,12 +76,12 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in Archetypes MimetypesRegistry generator validation PortalTransforms; do
-        /usr/sbin/installzopeproduct -d $p
-    done
+	for p in Archetypes MimetypesRegistry generator validation PortalTransforms; do
+		/usr/sbin/installzopeproduct -d $p
+	done
 fi
 if [ -f /var/lock/subsys/zope ]; then
-            /etc/rc.d/init.d/zope restart >&2
+	/etc/rc.d/init.d/zope restart >&2
 fi
 
 %files
