@@ -3,12 +3,12 @@ Summary:	Framework designed to facilitate the building of applications for Plone
 Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.2.5
-%define		sub_ver rc4
+%define		sub_ver rc5
 Release:	0.%{sub_ver}.1
 License:	GPL
 Group:		Development/Tools
-Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}-%{sub_ver}.tgz
-# Source0-md5:	15aa7eb4ef06f8f06852a39e86c4f3e0
+Source0:	http://dl.sourceforge.net/%{zope_subname}/Archetypes-%{version}-%{sub_ver}.tar.gz
+# Source0-md5:	8cde5eead180d4ee166749803c684820
 URL:		http://dreamcatcher.homeunix.org/
 %pyrequires_eq	python-modules
 Requires:	Zope
@@ -39,20 +39,19 @@ schematach.
 find . -type d -name debian | xargs rm -rf
 
 %build
-install -d docs/{ArchExample,ArchGenXML,Archetypes,generator,validation}
-mv -f %{zope_subname}-%{version}-%{sub_ver}/ArchExample/ChangeLog docs/ArchExample
-mv -f %{zope_subname}-%{version}-%{sub_ver}/ArchGenXML/{README,CREDITS} docs/ArchGenXML
-mv -f %{zope_subname}-%{version}-%{sub_ver}/Archetypes/{AUTHORS,ChangeLog,README.txt,TODO.txt,DEPENDS} docs/Archetypes
-rm -rf %{zope_subname}-%{version}-%{sub_ver}/Archetypes/LICENSE.*
-mv -f %{zope_subname}-%{version}-%{sub_ver}/generator/{ChangeLog,README} docs/generator
-rm -rf %{zope_subname}-%{version}-%{sub_ver}/{generator,validation}/MANIFEST.in
-mv -f %{zope_subname}-%{version}-%{sub_ver}/validation/{ChangeLog,README} docs/validation
+mkdir docs docs/{Archetypes,generator,validation}
+install -d docs/{Archetypes,generator,validation}
+mv -f Archetypes-%{version}-%{sub_ver}/Archetypes/{AUTHORS,ChangeLog,README.txt,DEPENDS} docs/Archetypes
+rm -rf Archetypes-%{version}-%{sub_ver}/Archetypes/LICENSE.*
+mv -f Archetypes-%{version}-%{sub_ver}/generator/{ChangeLog,README} docs/generator
+rm -rf Archetypes-%{version}-%{sub_ver}/{generator,validation}/MANIFEST.in
+mv -f Archetypes-%{version}-%{sub_ver}/validation/{ChangeLog,README} docs/validation
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -af %{zope_subname}-%{version}-%{sub_ver}/{ArchExample,ArchGenXML,Archetypes,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -af Archetypes-%{version}-%{sub_ver}/{Archetypes,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -63,7 +62,7 @@ cp -af %{zope_subname}-%{version}-%{sub_ver}/{ArchExample,ArchGenXML,Archetypes,
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in ArchExample ArchGenXML Archetypes generator validation; do
+for p in Archetypes generator validation; do
     /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -72,7 +71,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in ArchExample ArchGenXML Archetypes generator validation; do
+    for p in Archetypes generator validation; do
         /usr/sbin/installzopeproduct -d $p
     done
 fi
