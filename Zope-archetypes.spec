@@ -4,7 +4,7 @@ Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.2.5
 %define		sub_ver rc5
-Release:	0.%{sub_ver}.1
+Release:	0.%{sub_ver}.2
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/Archetypes-%{version}-%{sub_ver}.tar.gz
@@ -14,10 +14,10 @@ URL:		http://dreamcatcher.homeunix.org/
 Requires:	Zope
 Requires:	Zope-CMFPlone
 Requires:	Zope-CMF
-Requires:	Zope-PortalTransforms
 Requires(post,postun):  /usr/sbin/installzopeproduct
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Obsoletes:	Zope-PortalTransforms
 Conflicts:	CMF
 Conflicts:	Plone
 
@@ -37,12 +37,15 @@ schematach.
 %prep
 %setup -q -c
 find . -type d -name debian | xargs rm -rf
+find . -type f -name .cvsignore | xargs rm -rf
 
 %build
-mkdir docs docs/{Archetypes,generator,validation}
-install -d docs/{Archetypes,generator,validation}
+mkdir docs docs/{Archetypes,PortalTransforms,generator,validation}
+install -d docs/{Archetypes,PortalTransforms,generator,validation}
 mv -f Archetypes-%{version}-%{sub_ver}/Archetypes/{AUTHORS,ChangeLog,README.txt,DEPENDS} docs/Archetypes
 rm -rf Archetypes-%{version}-%{sub_ver}/Archetypes/LICENSE.*
+mv -f Archetypes-%{version}-%{sub_ver}/PortalTransforms/{ChangeLog,DEPENDS,README,SUGGESTS,TODO} docs/PortalTransforms
+rm -rf Archetypes-%{version}-%{sub_ver}/PortalTransforms/{LICENSE.txt,MANIFEST.in,Makefile}
 mv -f Archetypes-%{version}-%{sub_ver}/generator/{ChangeLog,README} docs/generator
 rm -rf Archetypes-%{version}-%{sub_ver}/{generator,validation}/MANIFEST.in
 mv -f Archetypes-%{version}-%{sub_ver}/validation/{ChangeLog,README} docs/validation
@@ -51,7 +54,7 @@ mv -f Archetypes-%{version}-%{sub_ver}/validation/{ChangeLog,README} docs/valida
 rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -af Archetypes-%{version}-%{sub_ver}/{Archetypes,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -af Archetypes-%{version}-%{sub_ver}/{Archetypes,PortalTransforms,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
@@ -62,7 +65,7 @@ cp -af Archetypes-%{version}-%{sub_ver}/{Archetypes,generator,validation} $RPM_B
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in Archetypes generator validation; do
+for p in Archetypes PortalTransforms generator validation; do
     /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -71,7 +74,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in Archetypes generator validation; do
+    for p in Archetypes PortalTransforms generator validation; do
         /usr/sbin/installzopeproduct -d $p
     done
 fi
