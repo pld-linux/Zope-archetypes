@@ -3,12 +3,12 @@
 Summary:	A framework for developing new content types in Plone
 Summary(pl):	Nowe ¶rodowisko pracy dla twórców serwisów Plone
 Name:		Zope-%{zope_subname}
-Version:	1.0.1
-Release:	3
+Version:	1.2.0
+Release:	1
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
-# Source0-md5:	53f3ccf5a88ce3a91b50e8a82165c2de
+# Source0-md5:	b25fdf747a286488b17e512205f4f1ac
 URL:		http://dreamcatcher.homeunix.org/
 %pyrequires_eq	python-modules
 Requires:	Zope-CMF
@@ -42,7 +42,6 @@ rm -f %{zope_subname}-%{version}/ArchGenXML/.cvsignore
 %build
 install -d docs/{ArchExample,ArchGenXML,Archetypes,generator,validation}
 cd %{zope_subname}-%{version}
-mv -f *.pdf ../docs
 mv -f ArchExample/ChangeLog ../docs/ArchExample
 mv -f ArchGenXML/README ../docs/ArchGenXML
 mv -f Archetypes/{docs/*,AUTHORS,ChangeLog,README.txt,TODO.txt} ../docs/Archetypes
