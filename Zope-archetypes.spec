@@ -1,13 +1,13 @@
 # 
 # TODO
-# - check this version on Zope, Plone and CMF
+# - Zope starting but connection refused (on WWW)! archetypes problem?
 #
 %define		zope_subname	archetypes
 Summary:	Framework designed to facilitate the building of applications for Plone and CMF. 
 Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.2.0
-Release:	2
+Release:	3
 License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
@@ -53,16 +53,12 @@ mv -f validation/{ChangeLog,README} ../docs/validation
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{py_sitedir}
+
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}
-cp -af %{zope_subname}-%{version}/{generator,validation} $RPM_BUILD_ROOT%{py_sitedir}
-cp -af %{zope_subname}-%{version}/{ArchExample,ArchGenXML,Archetypes} $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -af %{zope_subname}-%{version}/{ArchExample,ArchGenXML,Archetypes,generator,validation} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
-
-%py_comp $RPM_BUILD_ROOT%{py_sitedir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 
 rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 
@@ -70,7 +66,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in ArchExample ArchGenXML Archetypes ; do
+for p in ArchExample ArchGenXML Archetypes generator validation ; do
     /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -79,7 +75,7 @@ fi
 
 %postun
 if [ "$1" = "0" ]; then
-    for p in ArchExample ArchGenXML Archetypes ; do
+    for p in ArchExample ArchGenXML Archetypes generator validation; do
         /usr/sbin/installzopeproduct -d $p
     done
 fi
@@ -90,8 +86,4 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc docs/*
-%{_datadir}/%{name}/ArchExample
-%{_datadir}/%{name}/ArchGenXML
-%{_datadir}/%{name}/Archetypes
-%{py_sitedir}/generator
-%{py_sitedir}/validation
+%{_datadir}/%{name}
