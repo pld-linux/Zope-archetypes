@@ -44,13 +44,11 @@ find . -type d -name debian | xargs rm -rf
 
 %build
 install -d docs/{ArchExample,ArchGenXML,Archetypes,generator,validation}
-cd %{zope_subname}-%{version}
-mv -f ArchExample/ChangeLog ../docs/ArchExample
-mv -f ArchGenXML/README ../docs/ArchGenXML
-mv -f Archetypes/{docs/*,AUTHORS,ChangeLog,README.txt,TODO.txt} ../docs/Archetypes
-rm -rf Archetypes/docs
-mv -f generator/{ChangeLog,README} ../docs/generator
-mv -f validation/{ChangeLog,README} ../docs/validation
+mv -f %{zope_subname}-%{version}/ArchExample/ChangeLog docs/ArchExample
+mv -f %{zope_subname}-%{version}/ArchGenXML/README docs/ArchGenXML
+mv -f %{zope_subname}-%{version}/Archetypes/{AUTHORS,ChangeLog,README.txt,TODO.txt} docs/Archetypes
+mv -f %{zope_subname}-%{version}/generator/{ChangeLog,README} docs/generator
+mv -f %{zope_subname}-%{version}/validation/{ChangeLog,README} docs/validation
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -61,13 +59,13 @@ cp -af %{zope_subname}-%{version}/{ArchExample,ArchGenXML,Archetypes,generator,v
 %py_comp $RPM_BUILD_ROOT%{_datadir}/%{name}
 %py_ocomp $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
+# rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-for p in ArchExample ArchGenXML Archetypes generator validation ; do
+for p in ArchExample ArchGenXML Archetypes generator validation; do
     /usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
 if [ -f /var/lock/subsys/zope ]; then
@@ -86,5 +84,6 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc docs/*
+%doc docs/* 
 %{_datadir}/%{name}
+%dir %{_datadir}
