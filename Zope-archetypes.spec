@@ -1,7 +1,4 @@
-# 
-# TODO
-# - Zope starting but connection refused (on WWW)! archetypes problem?
-#
+
 %define		zope_subname	archetypes
 Summary:	Framework designed to facilitate the building of applications for Plone and CMF. 
 Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
