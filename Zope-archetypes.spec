@@ -2,20 +2,20 @@
 
 %define		zope_subname	archetypes
 
-Summary:	Archetypes is a framework for developing new content types in Plone.
-Summary(pl):	Archetypes jest nowym ¶rodowiskiem pracy dla twórców serwisów Plone.
+Summary:	Archetypes - a framework for developing new content types in Plone
+Summary(pl):	Archetypes - nowe ¶rodowisko pracy dla twórców serwisów Plone
 Name:		Zope-%{zope_subname}
 Version:	1.0.1
 Release:	1
 License:	GNU
 Group:		Development/Tools
-Source0:	http://telia.dl.sourceforge.net/sourceforge/%{zope_subname}/%{zope_subname}-%{version}.tgz
+Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
 # Source0-md5:	53f3ccf5a88ce3a91b50e8a82165c2de
 URL:		http://dreamcatcher.homeunix.org/
 %pyrequires_eq	python-modules
-Requires:	Zope
 Requires:	CMF
 Requires:	Plone
+Requires:	Zope
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -52,8 +52,9 @@ mv -f validation/{ChangeLog,MANIFEST.in,README} ../docs/validation
 
 %install
 rm -rf $RPM_BUILD_ROOT
-cd %{zope_subname}-%{version}
 install -d $RPM_BUILD_ROOT%{product_dir}
+
+cd %{zope_subname}-%{version}
 cp -af * $RPM_BUILD_ROOT%{product_dir}
 
 %py_comp $RPM_BUILD_ROOT%{product_dir}
