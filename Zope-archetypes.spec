@@ -7,7 +7,7 @@ Summary(pl):	Archetypes - nowe ¶rodowisko pracy dla twórców serwisów Plone
 Name:		Zope-%{zope_subname}
 Version:	1.0.1
 Release:	2
-License:	GNU
+License:	GPL
 Group:		Development/Tools
 Source0:	http://dl.sourceforge.net/%{zope_subname}/%{zope_subname}-%{version}.tgz
 # Source0-md5:	53f3ccf5a88ce3a91b50e8a82165c2de
@@ -37,25 +37,27 @@ zarz±dzalne biblioteki pól typów, kontrolek i korektorów pól, a tak¿e
 równie¿ bogat± automatykê.
 
 %prep
-%setup -q -c %{zope_subname}-%{version}
+%setup -q -c
+
+rm -f %{zope_subname}-%{version}/ArchGenXML/.cvsignore
 
 %build
-mkdir docs docs/ArchExample docs/ArchGenXML docs/Archetypes docs/generator docs/validation
+install -d docs/{ArchExample,ArchGenXML,Archetypes,generator,validation}
 cd %{zope_subname}-%{version}
-mv -f *.pdf ../docs/
+mv -f *.pdf ../docs
 mv -f ArchExample/ChangeLog ../docs/ArchExample
 mv -f ArchGenXML/README ../docs/ArchGenXML
-mv -f Archetypes/{/docs/*,AUTHORS,ChangeLog,README.txt,TODO.txt} ../docs/Archetypes
+mv -f Archetypes/{docs/*,AUTHORS,ChangeLog,README.txt,TODO.txt} ../docs/Archetypes
 rm -rf Archetypes/docs
-mv -f generator/{ChangeLog,MANIFEST.in,README} ../docs/generator
-mv -f validation/{ChangeLog,MANIFEST.in,README} ../docs/validation
+mv -f generator/{ChangeLog,README} ../docs/generator
+mv -f validation/{ChangeLog,README} ../docs/validation
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{product_dir}
 
-cd %{zope_subname}-%{version}
-cp -af * $RPM_BUILD_ROOT%{product_dir}
+# should {Archetypes,validation}/tests and */version.txt be installed or not?
+cp -af %{zope_subname}-%{version}/* $RPM_BUILD_ROOT%{product_dir}
 
 %py_comp $RPM_BUILD_ROOT%{product_dir}
 %py_ocomp $RPM_BUILD_ROOT%{product_dir}
