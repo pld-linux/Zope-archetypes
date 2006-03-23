@@ -15,12 +15,13 @@ Source0:	http://plone.org/products/archetypes/releases/%{version}-final/archetyp
 # Source0-md5:	cb169796a54cfe2c063a037604701337
 URL:		http://plone.org/products/archetypes/
 BuildRequires:	python
+BuildRequires:	rpmbuild(macros) >= 1.268
 %pyrequires_eq	python-modules
-Requires:	Zope
-Requires:	Zope-CMFPlone
-Requires:	Zope-CMF
-Requires:	rtf-converter
 Requires(post,postun):	/usr/sbin/installzopeproduct
+Requires:	Zope
+Requires:	Zope-CMF
+Requires:	Zope-CMFPlone
+Requires:	rtf-converter
 Obsoletes:	Zope-PortalTransforms
 Conflicts:	CMF
 Conflicts:	Plone
@@ -28,17 +29,16 @@ BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Archetypes (formerly known as CMFTypes) is a framework designed 
-to facilitate the building of applications for Plone and CMF. 
-Its main purpose is to provide a common method for building 
-content objects, based on schema definitions. 
+Archetypes (formerly known as CMFTypes) is a framework designed to
+facilitate the building of applications for Plone and CMF. Its main
+purpose is to provide a common method for building content objects,
+based on schema definitions.
 
 %description -l pl
 Archetypes (poprzednio znany jako CMFTypes) jest ¶rodowiskiem
-u³atwiaj±cym budowanie aplikacji dla Plone i CMF.
-G³ównym zadaniem jest dostarczenie podstawowych metod 
-do zbudowania obiektów typu content opartych na zdefiniowanych
-schematach. 
+u³atwiaj±cym budowanie aplikacji dla Plone i CMF. G³ównym zadaniem
+jest dostarczenie podstawowych metod do zbudowania obiektów typu
+content opartych na zdefiniowanych schematach.
 
 %prep
 %setup -q -c
@@ -72,21 +72,17 @@ rm -rf $RPM_BUILD_ROOT
 for p in Archetypes MimetypesRegistry generator validation PortalTransforms; do
 	/usr/sbin/installzopeproduct %{_datadir}/%{name}/$p
 done
-if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
-fi
+%service -q zope restart
 
 %postun
 if [ "$1" = "0" ]; then
 	for p in Archetypes MimetypesRegistry generator validation PortalTransforms; do
 		/usr/sbin/installzopeproduct -d $p
 	done
-fi
-if [ -f /var/lock/subsys/zope ]; then
-	/etc/rc.d/init.d/zope restart >&2
+	%service -q zope restart
 fi
 
 %files
 %defattr(644,root,root,755)
-%doc docs/* 
+%doc docs/*
 %{_datadir}/%{name}
