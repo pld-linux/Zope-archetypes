@@ -3,7 +3,7 @@
 #
 %define		zope_subname	archetypes
 Summary:	Framework designed to facilitate the building of applications for Plone and CMF. 
-Summary(pl):	¦rodowsko u³atwiaj±ce budowanie aplikacji dla Plone i CMF.
+Summary(pl.UTF-8):   Åšrodowsko uÅ‚atwiajÄ…ce budowanie aplikacji dla Plone i CMF.
 Name:		Zope-%{zope_subname}
 Version:	1.3.0
 #%%define		sub_ver rc3
@@ -31,11 +31,11 @@ to facilitate the building of applications for Plone and CMF.
 Its main purpose is to provide a common method for building 
 content objects, based on schema definitions. 
 
-%description -l pl
-Archetypes (poprzednio znany jako CMFTypes) jest ¶rodowskiem
-u³atwiaj±cym budowanie aplikacji dla Plone i CMF.
-G³ównym zadaniem jest dostarczenie podstawowych metod 
-do zbudowania obiektów typu content opartych na zdefiniowanych
+%description -l pl.UTF-8
+Archetypes (poprzednio znany jako CMFTypes) jest Å›rodowskiem
+uÅ‚atwiajÄ…cym budowanie aplikacji dla Plone i CMF.
+GÅ‚Ã³wnym zadaniem jest dostarczenie podstawowych metod 
+do zbudowania obiektÃ³w typu content opartych na zdefiniowanych
 schematach. 
 
 %prep
