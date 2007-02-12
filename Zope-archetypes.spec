@@ -3,7 +3,7 @@
 #
 %define		zope_subname	archetypes
 Summary:	Framework designed to facilitate the building of applications for Plone and CMF
-Summary(pl.UTF-8):   Środowsko ułatwiające budowanie aplikacji dla Plone i CMF
+Summary(pl.UTF-8):	Środowsko ułatwiające budowanie aplikacji dla Plone i CMF
 Name:		Zope-%{zope_subname}
 Version:	1.3.7
 #%%define		part_name 1-3-7
